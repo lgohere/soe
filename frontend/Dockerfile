@@ -37,8 +37,8 @@ ENV NUXT_TELEMETRY_DISABLED=1
 RUN apk add --no-cache curl
 
 # Criar usuário não-root para segurança
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 --ingroup nodejs node
+RUN addgroup -g 1001 nodejs && \
+    adduser -D -s /bin/sh -u 1001 -G nodejs node
 
 # Copiar apenas a saída do build SSR
 COPY --from=builder /app/.output /app/.output
