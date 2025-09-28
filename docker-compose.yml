@@ -14,7 +14,6 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database_schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
     networks:
       - biblia-network
     healthcheck:
@@ -47,11 +46,6 @@ services:
       - biblia-network
     labels:
       - "coolify.managed=true"
-      - "traefik.enable=true"
-      - "traefik.http.routers.biblia-backend.rule=Host(`${DOMAIN:-soe.texts.com.br}`) && PathPrefix(`/api`)"
-      - "traefik.http.routers.biblia-backend.entrypoints=websecure"
-      - "traefik.http.routers.biblia-backend.tls.certresolver=letsencryptresolver"
-      - "traefik.http.services.biblia-backend.loadbalancer.server.port=8000"
 
   # Nuxt 3 Frontend
   frontend:
@@ -70,12 +64,6 @@ services:
       - biblia-network
     labels:
       - "coolify.managed=true"
-      - "traefik.enable=true"
-      - "traefik.http.routers.biblia-frontend.rule=Host(`${DOMAIN:-soe.texts.com.br}`)"
-      - "traefik.http.routers.biblia-frontend.entrypoints=websecure"
-      - "traefik.http.routers.biblia-frontend.tls.certresolver=letsencryptresolver"
-      - "traefik.http.services.biblia-frontend.loadbalancer.server.port=3000"
-      - "traefik.http.routers.biblia-frontend.priority=1"
 
 volumes:
   postgres_data:
