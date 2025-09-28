@@ -52,7 +52,6 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-      target: production
     container_name: biblia-frontend
     restart: unless-stopped
     environment:
