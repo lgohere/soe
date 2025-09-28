@@ -1,0 +1,86 @@
+# Docker Compose for Coolify deployment
+# Following Coolify best practices - no exposed ports by default
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: biblia-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-bibliasoe}
+      POSTGRES_USER: ${DB_USER:-soe}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database_schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    networks:
+      - biblia-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-soe} -d ${DB_NAME:-bibliasoe}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "coolify.managed=true"
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    container_name: biblia-backend
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER:-soe}:${DB_PASSWORD}@db:5432/${DB_NAME:-bibliasoe}
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=${DB_NAME:-bibliasoe}
+      - DB_USER=${DB_USER:-soe}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - biblia-network
+    labels:
+      - "coolify.managed=true"
+      - "traefik.enable=true"
+      - "traefik.http.routers.biblia-backend.rule=Host(`${DOMAIN:-soe.texts.com.br}`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.biblia-backend.entrypoints=websecure"
+      - "traefik.http.routers.biblia-backend.tls.certresolver=letsencryptresolver"
+      - "traefik.http.services.biblia-backend.loadbalancer.server.port=8000"
+
+  # Nuxt 3 Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: production
+    container_name: biblia-frontend
+    restart: unless-stopped
+    environment:
+      - NUXT_PUBLIC_API_BASE=${NUXT_PUBLIC_API_BASE:-https://soe.texts.com.br/api}
+      - NODE_ENV=production
+    depends_on:
+      - backend
+    networks:
+      - biblia-network
+    labels:
+      - "coolify.managed=true"
+      - "traefik.enable=true"
+      - "traefik.http.routers.biblia-frontend.rule=Host(`${DOMAIN:-soe.texts.com.br}`)"
+      - "traefik.http.routers.biblia-frontend.entrypoints=websecure"
+      - "traefik.http.routers.biblia-frontend.tls.certresolver=letsencryptresolver"
+      - "traefik.http.services.biblia-frontend.loadbalancer.server.port=3000"
+      - "traefik.http.routers.biblia-frontend.priority=1"
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  biblia-network:
+    driver: bridge
