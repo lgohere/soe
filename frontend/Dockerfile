@@ -8,10 +8,8 @@ ENV NITRO_PORT=3000
 ENV NITRO_HOST=0.0.0.0
 ENV NUXT_TELEMETRY_DISABLED=1
 
-# Copia apenas a saída do build
 COPY --from=builder /app/.output /app/.output
 
-# Usa o usuário padrão já existente
 USER node
 EXPOSE 3000
 
