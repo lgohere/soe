@@ -1,53 +1,48 @@
-# Stage 1: Build
-FROM node:18-alpine AS builder
+# ---------- Stage 1: Build (com devDependencies) ----------
+FROM node:20-alpine AS builder
 
-# Instalar dependências de build para pacotes nativos
+# Dependências de build para eventuais pacotes nativos
 RUN apk add --no-cache python3 make g++ libc6-compat
 
 WORKDIR /app
 
-# Copiar apenas arquivos de dependências primeiro
+# Copia manifestos primeiro (melhor cache)
 COPY package*.json ./
 
-# Instalar dependências com fallback inteligente
-RUN npm ci --verbose || npm install --verbose
+# Instalação COM devDependencies (não defina NODE_ENV=production aqui)
+# Se o lockfile estiver ok, ci; senão, fallback p/ install
+RUN npm ci --include=dev --verbose || npm install --include=dev --verbose
 
-# Copiar código-fonte
+# Copia o restante do código
 COPY . .
 
-# Configurar Nitro para servidor Node.js
+# Configura SSR como servidor Node
 ENV NITRO_PRESET=node
 ENV NUXT_TELEMETRY_DISABLED=1
 
-# Build do Nuxt 3
+# Compila o Nuxt (gera .output)
 RUN npm run build
 
-# Stage 2: Runtime
-FROM node:18-alpine AS runner
-
+# ---------- Stage 2: Runtime (somente servidor Nitro) ----------
+FROM node:20-alpine AS runner
 WORKDIR /app
 
-# Variáveis de ambiente para produção
+# Aqui sim é produção
 ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOST=0.0.0.0
 ENV NITRO_PORT=3000
 ENV NITRO_HOST=0.0.0.0
 ENV NUXT_TELEMETRY_DISABLED=1
 
-# Instalar curl para healthcheck
-RUN apk add --no-cache curl
+# Usuário não-root
+RUN addgroup -S nodejs && adduser -S node -G nodejs
 
-# Copiar apenas a saída do build SSR
+# Copia APENAS a saída do build
 COPY --from=builder /app/.output /app/.output
 
-# Temporariamente rodando como root para resolver deploy
-# TODO: Adicionar usuário não-root depois do deploy funcionar
-
-# Expor porta
+USER node
 EXPOSE 3000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:3000/ || exit 1
-
-# Iniciar servidor Nuxt 3 SSR
+# Sobe o servidor SSR do Nitro
 CMD ["node", ".output/server/index.mjs"]
