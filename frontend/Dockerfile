@@ -1,5 +1,5 @@
-# Simplified Dockerfile for Nuxt 3
-FROM node:18-alpine
+# Robust Dockerfile for Nuxt 3
+FROM node:18
 
 # Set environment variables
 ENV NODE_ENV=production
@@ -9,13 +9,13 @@ ENV NUXT_TELEMETRY_DISABLED=1
 WORKDIR /app
 
 # Install curl for health checks
-RUN apk add --no-cache curl
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # Copy package files
 COPY package*.json ./
 
-# Install ALL dependencies first
-RUN npm ci
+# Install dependencies with verbose output
+RUN npm ci --verbose
 
 # Copy source code
 COPY . .
@@ -24,9 +24,10 @@ COPY . .
 RUN npm run build
 
 # Create non-root user for security
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nuxt -u 1001 && \
-    chown -R nuxt:nodejs /app
+RUN groupadd -r nodejs && useradd -r -g nodejs nuxt
+
+# Change ownership
+RUN chown -R nuxt:nodejs /app
 
 # Switch to non-root user
 USER nuxt
