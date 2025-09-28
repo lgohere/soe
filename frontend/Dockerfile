@@ -36,15 +36,11 @@ ENV NUXT_TELEMETRY_DISABLED=1
 # Instalar curl para healthcheck
 RUN apk add --no-cache curl
 
-# Criar usuário não-root para segurança (Alpine syntax)
-RUN addgroup -S nodejs && \
-    adduser -S -G nodejs node
-
 # Copiar apenas a saída do build SSR
 COPY --from=builder /app/.output /app/.output
 
-# Mudar para usuário não-root
-USER node
+# Temporariamente rodando como root para resolver deploy
+# TODO: Adicionar usuário não-root depois do deploy funcionar
 
 # Expor porta
 EXPOSE 3000
