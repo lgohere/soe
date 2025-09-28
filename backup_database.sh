@@ -24,7 +24,7 @@ echo "📂 Banco: $DB_NAME"
 echo "💾 Arquivo: $BACKUP_FILE"
 
 # Realizar backup usando pg_dump
-PGPASSWORD="aleluia100%100" pg_dump \
+PGPASSWORD="" pg_dump \
     -h "$DB_HOST" \
     -p "$DB_PORT" \
     -U "$DB_USER" \
