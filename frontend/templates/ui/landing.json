@@ -1,0 +1,6 @@
+{
+  "name": "ui-landing",
+  "defaultDir": "nuxt-app",
+  "url": "https://ui.nuxt.com",
+  "tar": "https://codeload.github.com/nuxt-ui-templates/landing/tar.gz/refs/heads/main"
+}

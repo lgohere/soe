@@ -1,0 +1,6 @@
+{
+  "name": "ui-portfolio",
+  "defaultDir": "nuxt-app",
+  "url": "https://ui.nuxt.com",
+  "tar": "https://codeload.github.com/nuxt-ui-templates/portfolio/tar.gz/refs/heads/main"
+}

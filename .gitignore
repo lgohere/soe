@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# FastAPI
+*.db
+*.sqlite3
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+scripts/logs/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node.js (Frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Nuxt.js
+.nuxt/
+.output/
+.env
+dist/
+
+# Coverage
+coverage/
+*.coverage
+.nyc_output
+
+# Docker
+*.log
+
+# Selenium
+chromedriver
+geckodriver
+*.crx
+selenium_scraping.log
+
+# Database backups
+*.sql
+*.backup
+*.dump
+
+# Temporary files
+tmp/
+temp/
+erro.txt
+
+# Build artifacts
+build/
+.cache/

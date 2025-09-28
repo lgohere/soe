@@ -1,0 +1,6 @@
+{
+  "name": "ui-vue",
+  "defaultDir": "vue-app",
+  "url": "https://ui.nuxt.com",
+  "tar": "https://codeload.github.com/nuxt-ui-templates/starter-vue/tar.gz/refs/heads/main"
+}
