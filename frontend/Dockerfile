@@ -36,9 +36,9 @@ ENV NUXT_TELEMETRY_DISABLED=1
 # Instalar curl para healthcheck
 RUN apk add --no-cache curl
 
-# Criar usuário não-root para segurança
-RUN addgroup -g 1001 nodejs && \
-    adduser -D -s /bin/sh -u 1001 -G nodejs node
+# Criar usuário não-root para segurança (Alpine syntax)
+RUN addgroup -S nodejs && \
+    adduser -S -G nodejs node
 
 # Copiar apenas a saída do build SSR
 COPY --from=builder /app/.output /app/.output
