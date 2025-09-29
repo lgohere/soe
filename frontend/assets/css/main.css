@@ -5,69 +5,81 @@
 /* Minimal & Elegant Reading Interface */
 @layer base {
   html {
-    font-size: 18px;
+    font-size: 16px;
+  }
+
+  @media (min-width: 640px) {
+    html {
+      font-size: 18px;
+    }
   }
 
   body {
     @apply font-light text-gray-900 bg-white;
-    line-height: 1.8;
+    line-height: 1.6;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  @media (min-width: 640px) {
+    body {
+      line-height: 1.8;
+    }
   }
 }
 
 @layer components {
-  /* Minimal buttons */
+  /* Responsive buttons */
   .btn-primary {
-    @apply bg-gray-900 hover:bg-gray-800 text-white font-light py-3 px-8 transition-all duration-300 text-base;
+    @apply bg-gray-900 hover:bg-gray-800 text-white font-light py-2 px-4 sm:py-3 sm:px-8 transition-all duration-300 text-sm sm:text-base;
   }
 
   .btn-secondary {
-    @apply border border-gray-300 hover:border-gray-900 text-gray-700 hover:text-gray-900 font-light py-3 px-8 transition-all duration-300 text-base;
+    @apply border border-gray-300 hover:border-gray-900 text-gray-700 hover:text-gray-900 font-light py-2 px-4 sm:py-3 sm:px-8 transition-all duration-300 text-sm sm:text-base;
   }
 
-  /* Clean cards */
+  /* Responsive cards */
   .card {
-    @apply bg-white border border-gray-100 hover:border-gray-200 transition-all duration-300;
+    @apply bg-white border border-gray-100 hover:border-gray-200 transition-all duration-300 rounded-none sm:rounded-none;
   }
 
-  /* Reading-optimized verse text */
+  /* Responsive verse text */
   .verse-text {
-    @apply text-lg leading-loose text-gray-800 font-light;
+    @apply text-base sm:text-lg leading-relaxed sm:leading-loose text-gray-800 font-light;
     font-feature-settings: 'liga', 'kern';
   }
 
-  /* Elegant book grid */
-  .book-nav {
-    @apply grid grid-cols-2 gap-4;
-  }
-
-  /* Minimal chapter grid */
+  /* Responsive chapter grid */
   .chapter-nav {
-    @apply grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3;
+    @apply grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-3;
   }
 
-  /* Clean input styling */
+  /* Responsive input styling */
   .input-field {
-    @apply w-full px-4 py-4 text-base border-b border-gray-200 focus:border-gray-900 bg-transparent focus:outline-none transition-colors font-light;
+    @apply w-full px-3 py-3 sm:px-4 sm:py-4 text-sm sm:text-base border-b border-gray-200 focus:border-gray-900 bg-transparent focus:outline-none transition-colors font-light;
   }
 
-  /* Minimal verse container */
+  /* Responsive verse container */
   .verse-container {
-    @apply py-6 border-b border-gray-50 last:border-b-0;
+    @apply py-4 sm:py-6 border-b border-gray-50 last:border-b-0;
   }
 
-  /* Chapter title */
+  /* Responsive chapter title */
   .chapter-title {
-    @apply text-2xl font-extralight text-gray-900 tracking-wide mb-6 text-center;
+    @apply text-xl sm:text-2xl font-normal text-gray-900 tracking-wide mb-4 sm:mb-6 text-center;
   }
 
-  /* Book title */
+  /* Responsive book title */
   .book-title {
-    @apply text-xl font-light text-gray-900 tracking-wide;
+    @apply text-lg sm:text-xl font-normal text-gray-900 tracking-wide;
   }
 
-  /* Navigation link */
+  /* Responsive navigation link */
   .nav-link {
-    @apply text-gray-600 hover:text-gray-900 transition-colors duration-300 font-light;
+    @apply text-gray-600 hover:text-gray-900 transition-colors duration-300 font-light text-sm sm:text-base;
+  }
+
+  /* Mobile-first touch targets */
+  .touch-target {
+    @apply min-h-12 flex items-center justify-center;
   }
 }

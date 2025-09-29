@@ -1,13 +1,15 @@
 <template>
-  <div class="space-y-16">
+  <div class="space-y-8 sm:space-y-16">
     <!-- Search Header -->
     <div class="text-center">
-      <h1 class="chapter-title" style="letter-spacing: 0pt; font-family:cursive">Buscar Versículos</h1>
+      <h1 class="text-xl sm:text-2xl md:text-3xl font-normal text-gray-900 tracking-wide">
+        Buscar Versículos
+      </h1>
     </div>
 
     <!-- Search Form -->
     <div class="max-w-xl mx-auto">
-      <form @submit.prevent="performSearch" class="space-y-8">
+      <form @submit.prevent="performSearch" class="space-y-6 sm:space-y-8">
         <div>
           <input
             v-model="searchQuery"
@@ -18,11 +20,11 @@
           >
         </div>
 
-        <div class="text-center">
+        <div class="flex justify-center">
           <button
             type="submit"
             :disabled="!searchQuery.trim() || searching"
-            class="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+            class="btn-primary disabled:opacity-50 disabled:cursor-not-allowed touch-target"
           >
             {{ searching ? 'Buscando...' : 'Buscar' }}
           </button>
@@ -32,30 +34,30 @@
 
     <!-- Search Results -->
     <div v-if="searchResults.length > 0" class="max-w-3xl mx-auto">
-      <div class="mb-12 text-center">
-        <h2 class="text-lg font-light text-gray-900 mb-2">
+      <div class="mb-8 sm:mb-12 text-center">
+        <h2 class="text-base sm:text-lg font-light text-gray-900 mb-2">
           {{ searchResults.length }} resultado{{ searchResults.length !== 1 ? 's' : '' }}
         </h2>
-        <p class="text-sm text-gray-500 font-light">{{ lastSearchQuery }}</p>
+        <p class="text-xs sm:text-sm text-gray-500 font-light">{{ lastSearchQuery }}</p>
       </div>
 
-      <div class="space-y-8">
+      <div class="space-y-6 sm:space-y-8">
         <div
           v-for="verse in searchResults"
           :key="verse.id"
-          class="border-b border-gray-100 pb-8 last:border-b-0"
+          class="border-b border-gray-100 pb-6 sm:pb-8 last:border-b-0"
         >
-          <div class="mb-4">
-            <span class="text-sm text-gray-500 font-light">
+          <div class="mb-3 sm:mb-4">
+            <span class="text-xs sm:text-sm text-gray-500 font-light">
               {{ verse.book_name }} {{ verse.chapter_number }}:{{ verse.verse_number }}
             </span>
           </div>
 
-          <p class="verse-text mb-4" v-html="highlightSearchTerm(verse.text)"></p>
+          <p class="verse-text mb-3 sm:mb-4" v-html="highlightSearchTerm(verse.text)"></p>
 
           <NuxtLink
             :to="`/chapters/${verse.chapter_id}`"
-            class="nav-link text-sm"
+            class="nav-link text-xs sm:text-sm touch-target justify-start"
           >
             Ler capítulo completo
           </NuxtLink>

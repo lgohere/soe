@@ -1,16 +1,16 @@
 <template>
-  <div class="space-y-16">
+  <div class="space-y-8 sm:space-y-16">
     <!-- Book Header -->
     <div class="text-center" v-if="book">
-      <div class="mb-8">
-        <NuxtLink to="/" class="nav-link text-sm">
+      <div class="mb-6 sm:mb-8">
+        <NuxtLink to="/" class="nav-link text-xs sm:text-sm touch-target">
           ← Livros
         </NuxtLink>
       </div>
-      <h1 class="chapter-title">
+      <h1 class="text-xl sm:text-2xl md:text-3xl font-normal text-gray-900 tracking-wide">
         {{ book.name }}
       </h1>
-      <p class="text-sm text-gray-500 font-light mt-4">
+      <p class="text-xs sm:text-sm text-gray-500 font-light mt-2 sm:mt-4">
         {{ book.testament === 'old_testament' ? 'Antigo Testamento' : 'Novo Testamento' }}
       </p>
     </div>
@@ -21,23 +21,23 @@
         v-for="chapter in chapters"
         :key="chapter.id"
         :to="`/acf/${bookSlug}/${chapter.chapter_number}`"
-        class="card p-4 text-center group cursor-pointer"
+        class="card p-3 sm:p-4 text-center group cursor-pointer hover:shadow-sm transition-all touch-target"
       >
-        <div class="text-lg font-light text-gray-900 group-hover:text-gray-700 transition-colors">
+        <div class="text-base sm:text-lg font-normal text-gray-900 group-hover:text-gray-700 transition-colors">
           {{ chapter.chapter_number }}
         </div>
       </NuxtLink>
     </div>
 
     <!-- Loading State -->
-    <div v-if="pending" class="text-center py-16">
-      <div class="text-base text-gray-500 font-light">Carregando capítulos...</div>
+    <div v-if="pending" class="text-center py-12 sm:py-16">
+      <div class="text-sm sm:text-base text-gray-500 font-light">Carregando capítulos...</div>
     </div>
 
     <!-- Error State -->
-    <div v-if="error" class="text-center py-16">
-      <div class="text-base text-gray-600 mb-6">Erro ao carregar o livro</div>
-      <button @click="refresh()" class="btn-secondary">
+    <div v-if="error" class="text-center py-12 sm:py-16">
+      <div class="text-sm sm:text-base text-gray-600 mb-6">Erro ao carregar o livro</div>
+      <button @click="refresh()" class="btn-secondary touch-target">
         Tentar novamente
       </button>
     </div>

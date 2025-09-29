@@ -1,30 +1,30 @@
 <template>
-  <div class="space-y-16">
+  <div class="space-y-8 sm:space-y-16">
     <!-- Chapter Header -->
     <div class="text-center" v-if="verses && verses.length > 0">
-      <div class="mb-8">
-        <NuxtLink :to="`/acf/${bookSlug}`" class="nav-link text-sm">
+      <div class="mb-6 sm:mb-8">
+        <NuxtLink :to="`/acf/${bookSlug}`" class="nav-link text-xs sm:text-sm touch-target">
           ← {{ verses[0].book_name }}
         </NuxtLink>
       </div>
-      <h1 class="chapter-title">
+      <h1 class="text-xl sm:text-2xl md:text-3xl font-normal text-gray-900 tracking-wide">
         {{ verses[0].book_name }} {{ verses[0].chapter_number }}
       </h1>
     </div>
 
     <!-- Chapter Navigation -->
-    <div class="flex justify-center space-x-8" v-if="verses && verses.length > 0">
+    <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-8" v-if="verses && verses.length > 0">
       <button
         v-if="chapterNumber > 1"
         @click="navigateChapter(-1)"
-        class="btn-secondary text-sm"
+        class="btn-secondary text-xs sm:text-sm touch-target w-full sm:w-auto"
       >
         Capítulo Anterior
       </button>
       <button
         v-if="hasNextChapter"
         @click="navigateChapter(1)"
-        class="btn-secondary text-sm"
+        class="btn-secondary text-xs sm:text-sm touch-target w-full sm:w-auto"
       >
         Próximo Capítulo
       </button>
@@ -32,16 +32,16 @@
 
     <!-- Verses Display -->
     <div class="max-w-3xl mx-auto">
-      <div v-if="verses" class="space-y-0 pb-32">
+      <div v-if="verses" class="space-y-0 pb-16 sm:pb-32">
         <div
           v-for="verse in verses"
           :key="verse.id"
-          class="verse-container flex items-start space-x-6"
+          class="verse-container flex items-start space-x-3 sm:space-x-6"
           :id="`verse-${verse.verse_number}`"
         >
           <!-- Verse Number -->
-          <div class="flex-shrink-0 w-8 text-center">
-            <span class="text-sm text-gray-400 font-light">{{ verse.verse_number }}</span>
+          <div class="flex-shrink-0 w-6 sm:w-8 text-center">
+            <span class="text-xs sm:text-sm text-gray-400 font-light">{{ verse.verse_number }}</span>
           </div>
 
           <!-- Verse Text -->
@@ -55,8 +55,8 @@
     </div>
 
     <!-- Loading State -->
-    <div v-if="pending" class="text-center py-16">
-      <div class="text-base text-gray-500 font-light">Carregando versículos...</div>
+    <div v-if="pending" class="text-center py-12 sm:py-16">
+      <div class="text-sm sm:text-base text-gray-500 font-light">Carregando versículos...</div>
     </div>
 
     <!-- Error State -->
@@ -93,7 +93,7 @@
               </svg>
               <div class="text-left">
                 <div class="text-xs text-gray-500 font-light">Anterior</div>
-                <div class="text-sm font-medium">{{ bookInfo.name }} {{ chapterNumber - 1 }}</div>
+                <div class="text-sm font-normal">{{ bookInfo.name }} {{ chapterNumber - 1 }}</div>
               </div>
             </button>
 
@@ -103,7 +103,7 @@
             <!-- Chapter Info -->
             <div class="text-center">
               <div class="text-xs text-gray-500 font-light">Capítulo</div>
-              <div class="text-lg font-medium text-gray-900">{{ chapterNumber }}</div>
+              <div class="text-lg font-normal text-gray-900">{{ chapterNumber }}</div>
             </div>
 
             <!-- Next Chapter -->
@@ -114,7 +114,7 @@
             >
               <div class="text-right">
                 <div class="text-xs text-gray-500 font-light">Próximo</div>
-                <div class="text-sm font-medium">{{ bookInfo.name }} {{ chapterNumber + 1 }}</div>
+                <div class="text-sm font-normal">{{ bookInfo.name }} {{ chapterNumber + 1 }}</div>
               </div>
               <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />

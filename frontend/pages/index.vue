@@ -1,17 +1,19 @@
 <template>
-  <div class="space-y-8">
+  <div class="space-y-6 sm:space-y-8">
     <!-- Page Header -->
     <div class="text-center">
-      <h1 class="chapter-title" style="letter-spacing: 0pt; font-family:cursive">Leitura das Sagradas Escrituras</h1>
+      <h1 class="text-xl sm:text-2xl md:text-3xl font-normal text-gray-900 tracking-wide">
+        Leitura das Sagradas Escrituras
+      </h1>
     </div>
 
     <!-- Testament Navigation -->
     <div class="flex justify-center">
-      <div class="flex border border-gray-200 rounded-none mx-auto">
+      <div class="flex border border-gray-200 rounded-none mx-auto w-full max-w-md sm:max-w-none sm:w-auto">
         <button
           @click="activeTestament = 'old_testament'"
           :class="[
-            'px-6 py-2 font-light text-sm transition-all duration-300 focus:outline-none',
+            'flex-1 sm:flex-none px-3 sm:px-6 py-2 font-light text-xs sm:text-sm transition-all duration-300 focus:outline-none',
             activeTestament === 'old_testament'
               ? 'bg-[#304E69] text-white'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 bg-white'
@@ -22,7 +24,7 @@
         <button
           @click="activeTestament = 'new_testament'"
           :class="[
-            'px-6 py-2 font-light text-sm transition-all duration-300 border-l border-gray-200 focus:outline-none',
+            'flex-1 sm:flex-none px-3 sm:px-6 py-2 font-light text-xs sm:text-sm transition-all duration-300 border-l border-gray-200 focus:outline-none',
             activeTestament === 'new_testament'
               ? 'bg-[#304E69] text-white'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 bg-white'
@@ -34,18 +36,18 @@
     </div>
 
     <!-- Books Grid -->
-    <div class="book-nav">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
       <NuxtLink
         v-for="book in filteredBooks"
         :key="book.id"
         :to="`/acf/${getBookSlug(book.name)}`"
-        class="card p-4 group cursor-pointer"
+        class="card p-3 sm:p-4 group cursor-pointer hover:shadow-sm transition-all"
       >
         <div>
-          <h3 class="book-title mb-2 group-hover:text-gray-700 transition-colors">
+          <h3 class="text-base sm:text-lg md:text-xl font-normal text-gray-900 tracking-wide mb-1 sm:mb-2 group-hover:text-gray-700 transition-colors">
             {{ book.name }}
           </h3>
-          <p class="text-sm text-gray-500 font-light">
+          <p class="text-xs sm:text-sm text-gray-500 font-light">
             {{ book.total_chapters }} capítulo{{ book.total_chapters !== 1 ? 's' : '' }}
           </p>
         </div>
@@ -53,8 +55,8 @@
     </div>
 
     <!-- Loading State -->
-    <div v-if="pending" class="text-center py-16">
-      <div class="text-base text-gray-500 font-light">Carregando livros...</div>
+    <div v-if="pending" class="text-center py-12 sm:py-16">
+      <div class="text-sm sm:text-base text-gray-500 font-light">Carregando livros...</div>
     </div>
   </div>
 </template>
