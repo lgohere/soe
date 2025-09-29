@@ -1,0 +1,36 @@
+{
+  "name": "Simplificando O Evangelho - Bíblia Online",
+  "short_name": "SOE Bíblia",
+  "description": "Plataforma minimalista para leitura bíblica compartilhada durante transmissões ao vivo. Interface clean e elegante para acompanhar a Palavra de Deus.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#304E69",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "pt-BR",
+  "categories": ["lifestyle", "education", "religion"],
+  "icons": [
+    {
+      "src": "/images/soe-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

@@ -97,7 +97,10 @@ import type { Verse } from '~/types'
 useHead({
   title: 'Buscar Versículos',
   meta: [
-    { name: 'description', content: 'Busque versículos específicos com nossa ferramenta de busca minimalista' }
+    { name: 'description', content: 'Busque versículos específicos na Bíblia com nossa ferramenta de busca minimalista. Encontre passagens por palavra-chave.' },
+    { property: 'og:title', content: 'Buscar Versículos - Simplificando O Evangelho' },
+    { property: 'og:description', content: 'Busque versículos específicos na Bíblia com nossa ferramenta de busca minimalista. Encontre passagens por palavra-chave.' },
+    { property: 'og:url', content: 'https://soe.texts.com.br/search' }
   ]
 })
 

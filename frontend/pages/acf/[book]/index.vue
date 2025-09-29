@@ -154,13 +154,18 @@ const book = computed<Book | null>(() => {
   }
 })
 
-// Set dynamic page title
+// Set dynamic page title and meta
 watchEffect(() => {
   if (book.value) {
+    const testament = book.value.testament === 'old_testament' ? 'Antigo Testamento' : 'Novo Testamento'
     useHead({
       title: `${book.value.name}`,
       meta: [
-        { name: 'description', content: `Leia ${book.value.name} com ${book.value.total_chapters} capítulos` }
+        { name: 'description', content: `Leia ${book.value.name} (${testament}) com ${book.value.total_chapters} capítulos na Bíblia Online. Interface minimalista para acompanhar transmissões ao vivo.` },
+        { property: 'og:title', content: `${book.value.name} - Simplificando O Evangelho` },
+        { property: 'og:description', content: `Leia ${book.value.name} (${testament}) com ${book.value.total_chapters} capítulos na Bíblia Online. Interface minimalista para acompanhar transmissões ao vivo.` },
+        { property: 'og:url', content: `https://soe.texts.com.br/acf/${bookSlug}` },
+        { name: 'keywords', content: `${book.value.name}, ${testament}, bíblia, evangelho, simplificando o evangelho, acf` }
       ]
     })
   }

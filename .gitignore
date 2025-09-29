@@ -75,4 +75,4 @@ erro.txt
 build/
 .cache/
 
-database_schema.sql
+*.sql

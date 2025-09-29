@@ -64,9 +64,12 @@ import type { Book } from '~/types'
 
 // Page meta
 useHead({
-  title: 'Livros',
+  title: 'Bíblia Online',
   meta: [
-    { name: 'description', content: 'Navegue pelos 66 livros com interface minimalista' }
+    { name: 'description', content: 'Navegue pelos 66 livros da Bíblia com interface minimalista. Leitura bíblica compartilhada durante transmissões ao vivo.' },
+    { property: 'og:title', content: 'Bíblia Online - Simplificando O Evangelho' },
+    { property: 'og:description', content: 'Navegue pelos 66 livros da Bíblia com interface minimalista. Leitura bíblica compartilhada durante transmissões ao vivo.' },
+    { property: 'og:url', content: 'https://soe.texts.com.br' }
   ]
 })
 
