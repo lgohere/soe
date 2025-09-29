@@ -1,7 +1,13 @@
+# syntax=docker/dockerfile:1
 FROM node:20-alpine
 WORKDIR /app
 RUN apk add --no-cache curl
+COPY package*.json ./
+RUN npm install
 COPY . .
-RUN npm install && npm run build
+RUN npm run build
 EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:3000/ || exit 1
+USER node
 CMD ["node", ".output/server/index.mjs"]
