@@ -1,5 +1,12 @@
-# Docker Compose for Coolify - Official Documentation Pattern
+# Docker Compose for Coolify deployment
+# Following Coolify best practices - no exposed ports by default
 version: '3.8'
+
+# Coolify configuration to disable build secrets
+x-coolify-labels: &coolify-labels
+  coolify.managed: "true"
+  coolify.buildSecrets: "false"
+  coolify.name: "biblia-soe"
 
 services:
   # PostgreSQL Database
@@ -8,9 +15,9 @@ services:
     container_name: biblia-db
     restart: unless-stopped
     environment:
-      - POSTGRES_DB=${DB_NAME:-bibliasoe}
-      - POSTGRES_USER=${DB_USER:-soe}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME:-bibliasoe}
+      POSTGRES_USER: ${DB_USER:-soe}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
@@ -24,7 +31,8 @@ services:
       retries: 5
       start_period: 60s
     labels:
-      - coolify.managed=true
+      - "coolify.managed=true"
+      - "coolify.buildSecrets=false"
 
   # FastAPI Backend
   backend:
@@ -48,7 +56,8 @@ services:
     networks:
       - biblia-network
     labels:
-      - coolify.managed=true
+      - "coolify.managed=true"
+      - "coolify.buildSecrets=false"
 
   # Nuxt 3 Frontend
   frontend:
@@ -74,7 +83,8 @@ services:
       start_period: 30s
       retries: 5
     labels:
-      - coolify.managed=true
+      - "coolify.managed=true"
+      - "coolify.buildSecrets=false"
 
 volumes:
   postgres_data:
