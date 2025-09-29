@@ -32,7 +32,7 @@
 
     <!-- Verses Display -->
     <div class="max-w-3xl mx-auto">
-      <div v-if="verses" class="space-y-0 pb-16 sm:pb-32">
+      <div v-if="verses" class="space-y-0 pb-24 sm:pb-32">
         <div
           v-for="verse in verses"
           :key="verse.id"
@@ -80,13 +80,13 @@
         v-if="showFloatingNav && verses && verses.length > 0"
         class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 shadow-lg z-40"
       >
-        <div class="max-w-4xl mx-auto px-6 py-4">
+        <div class="max-w-4xl mx-auto px-4 py-3 sm:px-6 sm:py-4">
           <div class="flex justify-between items-center">
             <!-- Previous Chapter -->
             <button
               v-if="chapterNumber > 1"
               @click="navigateChapter(-1)"
-              class="flex items-center space-x-3 px-6 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-all duration-200 group"
+              class="flex items-center space-x-2 sm:space-x-3 px-3 py-2 sm:px-6 sm:py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-all duration-200 group"
             >
               <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -98,19 +98,19 @@
             </button>
 
             <!-- Spacer if no previous chapter -->
-            <div v-else class="w-32"></div>
+            <div v-else class="w-16 sm:w-32"></div>
 
             <!-- Chapter Info -->
             <div class="text-center">
               <div class="text-xs text-gray-500 font-light">Capítulo</div>
-              <div class="text-lg font-normal text-gray-900">{{ chapterNumber }}</div>
+              <div class="text-base sm:text-lg font-normal text-gray-900">{{ chapterNumber }}</div>
             </div>
 
             <!-- Next Chapter -->
             <button
               v-if="hasNextChapter"
               @click="navigateChapter(1)"
-              class="flex items-center space-x-3 px-6 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-all duration-200 group"
+              class="flex items-center space-x-2 sm:space-x-3 px-3 py-2 sm:px-6 sm:py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-all duration-200 group"
             >
               <div class="text-right">
                 <div class="text-xs text-gray-500 font-light">Próximo</div>
@@ -122,7 +122,7 @@
             </button>
 
             <!-- Spacer if no next chapter -->
-            <div v-else class="w-32"></div>
+            <div v-else class="w-16 sm:w-32"></div>
           </div>
         </div>
       </div>
