@@ -63,7 +63,6 @@ geckodriver
 selenium_scraping.log
 
 # Database backups
-*.sql
 *.backup
 *.dump
 
@@ -75,3 +74,5 @@ erro.txt
 # Build artifacts
 build/
 .cache/
+
+database_schema.sql

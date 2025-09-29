@@ -2,7 +2,7 @@
   <div class="space-y-16">
     <!-- Search Header -->
     <div class="text-center">
-      <h1 class="chapter-title">Buscar Versículos</h1>
+      <h1 class="chapter-title" style="letter-spacing: 0pt; font-family:cursive">Buscar Versículos</h1>
     </div>
 
     <!-- Search Form -->

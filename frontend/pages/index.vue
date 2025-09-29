@@ -2,7 +2,7 @@
   <div class="space-y-8">
     <!-- Page Header -->
     <div class="text-center">
-      <h1 class="chapter-title">Leitura das Sagradas Escrituras</h1>
+      <h1 class="chapter-title" style="letter-spacing: 0pt; font-family:cursive">Leitura das Sagradas Escrituras</h1>
     </div>
 
     <!-- Testament Navigation -->

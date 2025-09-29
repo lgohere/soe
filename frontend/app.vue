@@ -2,28 +2,22 @@
   <div class="min-h-screen bg-white">
     <!-- Minimal Header -->
     <header class="border-b border-gray-100 bg-white sticky top-0 z-50">
-      <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-4xl mx-auto px-6">
         <div class="flex justify-between items-center py-6">
           <div class="flex items-center">
             <NuxtLink to="/" class="flex items-center hover:opacity-80 transition-opacity">
               <img
                 src="/images/soe-icon.png"
                 alt="Simplificando O Evangelho"
-                class="h-10 w-auto"
+                class="w-auto"
+                style=" height: 3.7rem; "
               />
             </NuxtLink>
           </div>
-          <nav class="flex items-center justify-center space-x-8">
-            <NuxtLink
-              to="/"
-              class="text-sm transition-colors font-light flex items-center"
-              :class="$route.path === '/' || $route.path.startsWith('/acf') ? 'text-brand-primary' : 'text-gray-600 hover:text-brand-primary'"
-            >
-              Livros
-            </NuxtLink>
+          <nav class="flex items-center justify-center space-x-8" style="font-family: cursive;">
             <NuxtLink
               to="/search"
-              class="text-sm transition-colors font-light flex items-center"
+              class="text-lg transition-colors font-light flex items-center"
               :class="$route.path.startsWith('/search') ? 'text-brand-primary' : 'text-gray-600 hover:text-brand-primary'"
             >
               Buscar
@@ -32,7 +26,7 @@
               <img
                 src="/images/orbe-icon.png"
                 alt="Orbe"
-                class="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity"
+                class="w-auto" style="height: 5rem;"
               />
             </div>
           </nav>
