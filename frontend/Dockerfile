@@ -1,45 +1,30 @@
-FROM node:20-alpine AS builder
+FROM node:20-alpine
 
-# Install necessary dependencies for build
+# Install dependencies including curl for health checks
 RUN apk add --no-cache python3 make g++ libc6-compat curl
 
 WORKDIR /app
 
-# Copy package files for better cache
+# Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --include=dev --verbose || npm install --include=dev --verbose
+# Install all dependencies
+RUN npm ci --include=dev || npm install --include=dev
 
 # Copy source code
 COPY . .
 
-# Configure Nuxt for production
+# Set environment variables
 ENV NODE_ENV=production
 ENV NITRO_PRESET=node-server
 ENV NUXT_TELEMETRY_DISABLED=1
-
-# Build the application
-RUN npm run build
-
-# ---------- Production Stage ----------
-FROM node:20-alpine AS runner
-
-# Install curl for health checks
-RUN apk add --no-cache curl
-
-WORKDIR /app
-
-# Set production environment
-ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOST=0.0.0.0
 ENV NITRO_PORT=3000
 ENV NITRO_HOST=0.0.0.0
-ENV NUXT_TELEMETRY_DISABLED=1
 
-# Copy built application
-COPY --from=builder /app/.output /app/.output
+# Build the application
+RUN npm run build
 
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs && \

@@ -16,10 +16,10 @@
 
 **✅ PORTAS CONFIGURADAS CORRETAMENTE:**
 ```
-Coolify (VPS):        5.161.241.7:8000  ← Painel administrativo
-Frontend (Container): 3000              ← Interface web
-Backend (Container):  8001              ← API (SEM conflito!)
-PostgreSQL:           5432              ← Banco interno
+Coolify:              https://coolify.texts.com.br  ← Painel administrativo
+Frontend (Container): 3000                          ← Interface web
+Backend (Container):  8001                          ← API (SEM conflito!)
+PostgreSQL:           5432                          ← Banco interno
 ```
 
 **🚨 IMPORTANTE:** Backend foi movido para porta **8001** para **NÃO conflitar** com Coolify na porta 8000.
@@ -31,7 +31,7 @@ PostgreSQL:           5432              ← Banco interno
 ### **1. CRIAR PROJETO NO COOLIFY**
 
 ```bash
-# Acesse: https://[IP_VPS]:8000
+# Acesse: https://coolify.texts.com.br
 # Login no painel Coolify
 ```
 
