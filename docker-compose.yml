@@ -48,6 +48,10 @@ services:
       - biblia-network
     labels:
       - coolify.managed=true
+      - traefik.enable=true
+      - traefik.http.routers.backend-api.rule=Host(`soe.texts.com.br`) && PathPrefix(`/api`)
+      - traefik.http.routers.backend-api.entrypoints=https
+      - traefik.http.services.backend-api.loadbalancer.server.port=8001
 
   # Nuxt 3 Frontend
   frontend:
