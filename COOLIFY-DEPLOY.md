@@ -12,6 +12,20 @@
 
 ---
 
+## ⚡ **CONFIGURAÇÃO DE PORTAS - SEM CONFLITOS**
+
+**✅ PORTAS CONFIGURADAS CORRETAMENTE:**
+```
+Coolify (VPS):        5.161.241.7:8000  ← Painel administrativo
+Frontend (Container): 3000              ← Interface web
+Backend (Container):  8001              ← API (SEM conflito!)
+PostgreSQL:           5432              ← Banco interno
+```
+
+**🚨 IMPORTANTE:** Backend foi movido para porta **8001** para **NÃO conflitar** com Coolify na porta 8000.
+
+---
+
 ## 🔧 **CONFIGURAÇÃO COOLIFY - PASSO A PASSO**
 
 ### **1. CRIAR PROJETO NO COOLIFY**
@@ -44,7 +58,7 @@ DB_PASSWORD=SuaSenhaForteAqui123!
 DOMAIN=soe.texts.com.br
 
 # Network Configuration (IMPORTANTE)
-NUXT_PUBLIC_API_BASE=http://backend:8000/api/v1
+NUXT_PUBLIC_API_BASE=http://backend:8001/api/v1
 ```
 
 **🚨 ATENÇÃO:**

@@ -29,14 +29,14 @@ RUN adduser --disabled-password --gecos '' --uid 1001 appuser && \
 
 USER appuser
 
-EXPOSE 8000
+EXPOSE 8001
 
 # Enhanced health check with longer timeout for startup
 HEALTHCHECK --interval=30s --timeout=15s --start-period=30s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:8001/health || exit 1
 
 # Production stage
 FROM base as production
 
 # Start with single worker for better memory usage
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1", "--timeout-keep-alive", "30"]
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8001", "--workers", "1", "--timeout-keep-alive", "30"]
