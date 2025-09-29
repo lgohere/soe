@@ -48,12 +48,6 @@ services:
       - biblia-network
     labels:
       - coolify.managed=true
-      - traefik.enable=true
-      - traefik.http.routers.backend-api.rule=Host(`soe.texts.com.br`) && PathPrefix(`/api/`)
-      - traefik.http.routers.backend-api.entrypoints=https
-      - traefik.http.services.backend-api.loadbalancer.server.port=8001
-      - traefik.http.middlewares.backend-api-stripprefix.stripprefix.prefixes=/api
-      - traefik.http.routers.backend-api.middlewares=backend-api-stripprefix
 
   # Nuxt 3 Frontend
   frontend:
@@ -67,7 +61,7 @@ services:
       - NITRO_PORT=3000
       - NITRO_HOST=0.0.0.0
       - NUXT_TELEMETRY_DISABLED=1
-      - NUXT_PUBLIC_API_BASE=http://backend:8001/api/v1
+      - NUXT_PUBLIC_API_BASE=https://soe.texts.com.br/api/v1
     depends_on:
       - backend
     networks:
