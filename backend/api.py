@@ -93,10 +93,10 @@ async def root():
         "status": "✅ Online",
         "documentation": "/docs",
         "quick_links": {
-            "all_books": "/api/v1/books",
-            "random_verse": "/api/v1/verses/random",
-            "search_love": "/api/v1/search?q=amor",
-            "stats": "/api/v1/stats"
+            "all_books": "/v1/books",
+            "random_verse": "/v1/verses/random",
+            "search_love": "/v1/search?q=amor",
+            "stats": "/v1/stats"
         },
         "timestamp": datetime.now().isoformat()
     }
@@ -123,7 +123,7 @@ async def health_check():
 
 # ==================== BOOKS API ====================
 
-@app.get("/api/v1/books", response_model=List[Dict], tags=["📚 Books"])
+@app.get("/v1/books", response_model=List[Dict], tags=["📚 Books"])
 async def get_books():
     """📚 Lista todos os 66 livros da Bíblia em ordem bíblica"""
     try:
@@ -143,7 +143,7 @@ async def get_books():
             detail="Erro ao buscar livros da Bíblia"
         )
 
-@app.get("/api/v1/books/{book_id}", response_model=Dict, tags=["📚 Books"])
+@app.get("/v1/books/{book_id}", response_model=Dict, tags=["📚 Books"])
 async def get_book(book_id: int):
     """📖 Detalhes de um livro específico"""
     try:
@@ -165,7 +165,7 @@ async def get_book(book_id: int):
             detail="Erro ao buscar detalhes do livro"
         )
 
-@app.get("/api/v1/books/{book_id}/chapters", response_model=List[Dict], tags=["📚 Books"])
+@app.get("/v1/books/{book_id}/chapters", response_model=List[Dict], tags=["📚 Books"])
 async def get_book_chapters(book_id: int):
     """📑 Todos os capítulos de um livro"""
     try:
@@ -200,7 +200,7 @@ async def get_book_chapters(book_id: int):
 
 # ==================== CHAPTERS API ====================
 
-@app.get("/api/v1/chapters/{chapter_id}", response_model=Dict, tags=["📄 Chapters"])
+@app.get("/v1/chapters/{chapter_id}", response_model=Dict, tags=["📄 Chapters"])
 async def get_chapter(chapter_id: int):
     """📄 Detalhes de um capítulo específico"""
     try:
@@ -230,7 +230,7 @@ async def get_chapter(chapter_id: int):
             detail="Erro ao buscar detalhes do capítulo"
         )
 
-@app.get("/api/v1/chapters/{chapter_id}/verses", response_model=List[Dict], tags=["📄 Chapters"])
+@app.get("/v1/chapters/{chapter_id}/verses", response_model=List[Dict], tags=["📄 Chapters"])
 async def get_chapter_verses(chapter_id: int):
     """📝 Todos os versículos de um capítulo"""
     try:
@@ -270,7 +270,7 @@ async def get_chapter_verses(chapter_id: int):
 
 # ==================== VERSES API ====================
 
-@app.get("/api/v1/verses/random", response_model=Dict, tags=["✝️ Verses"])
+@app.get("/v1/verses/random", response_model=Dict, tags=["✝️ Verses"])
 async def get_random_verse():
     """🎲 Versículo aleatório do dia - Inspiração divina"""
     try:
@@ -303,7 +303,7 @@ async def get_random_verse():
             detail="Erro ao buscar versículo aleatório"
         )
 
-@app.get("/api/v1/verses/{verse_id}", response_model=Dict, tags=["✝️ Verses"])
+@app.get("/v1/verses/{verse_id}", response_model=Dict, tags=["✝️ Verses"])
 async def get_verse(verse_id: int):
     """✝️ Versículo específico com contexto completo"""
     try:
@@ -335,7 +335,7 @@ async def get_verse(verse_id: int):
             detail="Erro ao buscar versículo"
         )
 
-@app.get("/api/v1/verse/{book_name}/{chapter_num}/{verse_num}", response_model=Dict, tags=["✝️ Verses"])
+@app.get("/v1/verse/{book_name}/{chapter_num}/{verse_num}", response_model=Dict, tags=["✝️ Verses"])
 async def get_verse_by_reference(book_name: str, chapter_num: int, verse_num: int):
     """📍 Versículo por referência direta (Ex: João/3/16)"""
     try:
@@ -375,7 +375,7 @@ async def get_verse_by_reference(book_name: str, chapter_num: int, verse_num: in
 
 # ==================== SEARCH API ====================
 
-@app.get("/api/v1/search", response_model=List[Dict], tags=["🔍 Search"])
+@app.get("/v1/search", response_model=List[Dict], tags=["🔍 Search"])
 async def search_verses(
     q: str = Query(..., min_length=2, description="Palavra ou frase para buscar"),
     limit: int = Query(50, le=100, ge=1, description="Máximo de resultados (1-100)")
@@ -425,7 +425,7 @@ async def search_verses(
             detail="Erro na busca de versículos"
         )
 
-@app.get("/api/v1/search/suggest", tags=["🔍 Search"])
+@app.get("/v1/search/suggest", tags=["🔍 Search"])
 async def search_suggestions(
     q: str = Query(..., min_length=1, description="Termo para sugestões"),
     limit: int = Query(10, le=20, ge=1, description="Máximo de sugestões")
@@ -466,7 +466,7 @@ async def search_suggestions(
 
 # ==================== STATISTICS API ====================
 
-@app.get("/api/v1/stats", tags=["📊 Statistics"])
+@app.get("/v1/stats", tags=["📊 Statistics"])
 async def get_bible_stats():
     """📊 Estatísticas completas da Bíblia"""
     try:
