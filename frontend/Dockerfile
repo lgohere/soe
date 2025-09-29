@@ -5,8 +5,8 @@ RUN apk add --no-cache python3 make g++ libc6-compat curl
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy package files (FRONTEND SPECIFIC)
+COPY package.json package-lock.json ./
 
 # Install all dependencies
 RUN npm ci --include=dev || npm install --include=dev

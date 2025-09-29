@@ -32,6 +32,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+      args:
+        - BUILDKIT_CONTEXT_KEEP_GIT_DIR=1
     container_name: biblia-backend
     restart: unless-stopped
     ports:
@@ -56,6 +58,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        - BUILDKIT_CONTEXT_KEEP_GIT_DIR=1
     container_name: biblia-frontend
     restart: unless-stopped
     environment:

@@ -1,3 +1,13 @@
+# Frontend .dockerignore
+# Ignore backend files completely
+requirements.txt
+api.py
+models.py
+*.py
+__pycache__/
+.pytest_cache/
+
+# Node.js
 node_modules
 .git
 .gitignore
