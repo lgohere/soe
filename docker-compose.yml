@@ -14,13 +14,16 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+      - ./manual_backup.sql:/docker-entrypoint-initdb.d/restore.sql:ro
     networks:
       - biblia-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-soe} -d ${DB_NAME:-bibliasoe}"]
-      interval: 10s
-      timeout: 5s
+      interval: 30s
+      timeout: 10s
       retries: 5
+      start_period: 60s
     labels:
       - "coolify.managed=true"
 
@@ -60,16 +63,17 @@ services:
       - NITRO_PORT=3000
       - NITRO_HOST=0.0.0.0
       - NUXT_TELEMETRY_DISABLED=1
-      - NUXT_PUBLIC_API_BASE=${NUXT_PUBLIC_API_BASE:-https://soe.texts.com.br/api}
+      - NUXT_PUBLIC_API_BASE=http://backend:8000/api/v1
     depends_on:
       - backend
     networks:
       - biblia-network
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:3000/ || exit 1"]
-      interval: 10s
-      timeout: 3s
-      retries: 10
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 5
     labels:
       - "coolify.managed=true"
 
