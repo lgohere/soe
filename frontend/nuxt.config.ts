@@ -11,6 +11,7 @@ export default defineNuxtConfig({
       titleTemplate: '%s - Simplificando O Evangelho',
       meta: [
         { charset: 'utf-8' },
+        { name: 'google-site-verification', content: 'fc0leVH2rEEg11WzYf4oiWOD1nxJ4PKw4jREetPzmO0' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes' },
         { name: 'format-detection', content: 'telephone=no' },
         { name: 'description', content: 'Plataforma minimalista para leitura bíblica compartilhada durante transmissões ao vivo. Interface clean e elegante para acompanhar a Palavra de Deus.' },
